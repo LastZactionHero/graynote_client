@@ -19,3 +19,5 @@ body {
   border-width: 1px 0;
   background: #666;
 }
+
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
