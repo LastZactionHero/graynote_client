@@ -4,4 +4,4 @@ import App from './Main';
 import Locations from './Locations';
 
 // Render the main component into the dom
-ReactDOM.render(<Locations />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
