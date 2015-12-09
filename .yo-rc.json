@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "graynoteReact",
+    "style": "scss",
+    "postcss": true
+  }
+}
