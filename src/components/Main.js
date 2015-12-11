@@ -1,12 +1,8 @@
 require('normalize.css');
 require('styles/App.css');
 
-var $;
-$ = require('jquery');
 
 import React from 'react';
-
-let yeomanImage = require('../images/yeoman.png');
 
 class AppComponent extends React.Component {
   render() {
