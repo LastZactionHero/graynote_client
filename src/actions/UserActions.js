@@ -12,9 +12,7 @@ class UserActions {
     this.dispatch();
     UserSource.register(email, password).then(
       this.actions.updateLoggedIn,
-      function(error){
-        this.actions.updateRegistrationFailed(error)
-      }
+      this.actions.updateRegistrationFailed
     )
   }
 }

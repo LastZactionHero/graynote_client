@@ -1,8 +1,9 @@
 require('normalize.css');
 require('styles/App.css');
 
-
 import React from 'react';
+import Locations from './Locations';
+import Registration from './Registration';
 
 class AppComponent extends React.Component {
   render() {
@@ -22,7 +23,7 @@ class AppComponent extends React.Component {
           </div>
         </nav>
         <div className='container-fluid'>
-          <h1>Note</h1>
+          <Registration></Registration>
         </div>
       </div>
     );
