@@ -29,4 +29,12 @@ describe("UserStore", () => {
     alt.dispatcher.dispatch({action, data});
     expect(wrappedUserStore.getState().error).to.equal(data)
   });
+
+  it("listens for update login failed action", () => {
+    var action = userActions.UPDATE_LOGIN_FAILED;
+    var data = {errors: {email: ["not found"]}}
+
+    alt.dispatcher.dispatch({action, data});
+    expect(wrappedUserStore.getState().error).to.equal(data)
+  });
 });

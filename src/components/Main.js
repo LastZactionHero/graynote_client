@@ -2,7 +2,6 @@ require('normalize.css');
 require('styles/App.css');
 
 import React from 'react';
-import Locations from './Locations';
 import Registration from './Registration';
 
 class AppComponent extends React.Component {

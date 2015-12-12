@@ -1,10 +1,12 @@
-var React = require("react");
+var React = require('react');
 var UserStore = require('../stores/UserStore')
-var UserActions = require("../actions/UserActions")
+var UserActions = require('../actions/UserActions')
 
 var Registration = React.createClass({
   getInitialState() {
-    return UserStore.getState();
+    var data = UserStore.getState();
+    data.usage = 'register'
+    return data;
   },
   componentDidMount() {
     UserStore.listen(this.onChange);
@@ -28,35 +30,62 @@ var Registration = React.createClass({
 
     var email = this.state.email.trim();
     var password = this.state.password.trim();
-    UserActions.registerUser(email, password)
+    if(this.state.usage == 'register'){
+      UserActions.registerUser(email, password);
+    } else {
+      UserActions.loginUser(email, password);
+    }
+  },
+  toggleUsage(e) {
+    e.preventDefault();
+
+    var newUsage;
+    var usage = this.state.usage;
+
+    if(usage == 'register'){
+      newUsage = 'login'
+    } else {
+      newUsage = 'register'
+    }
+    this.setState({usage: newUsage})
   },
   render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Sign Up for GrayNote</h2>
+    if(this.state.token){
+      return(
+        <div className='alert alert-success'>{this.state.token}</div>
+      )
+    } else {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <h2>{this.state.usage == 'register' ? 'Sign Up for GrayNote' : 'Login to GrayNote'}</h2>
 
-        {this.state.error ? <div className='alert alert-danger'>{JSON.stringify(this.state.error)}</div> : ''}
-        {this.state.token ? <div className='alert alert-success'>{this.state.token}</div> : ''}
+          {this.state.error ? <div className='alert alert-danger'>{JSON.stringify(this.state.error)}</div> : ''}
 
-        <div className='form-group'>
-          <label>Email</label>
-          <input
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-            type='text'
-            className='form-control'></input>
-        </div>
-        <div className='form-group'>
-          <label>Password</label>
-          <input
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-            type='password'
-            className='form-control'></input>
-        </div>
-        <button type="submit" className="btn btn-default">Sign Up</button>
-      </form>
-    );
+          <div className='form-group'>
+            <label>Email</label>
+            <input
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+              type='email'
+              className='form-control'></input>
+          </div>
+          <div className='form-group'>
+            <label>Password</label>
+            <input
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+              type='password'
+              className='form-control'></input>
+          </div>
+
+          <button type='submit' className='btn btn-default'>
+            {this.state.usage == 'register' ? 'Sign Up' : 'Log In'}
+          </button>
+          <a href='#' onClick={this.toggleUsage}>{this.state.usage == 'register' ? 'I already have an account.' : 'Create an account.'}</a>
+        </form>
+
+      );
+    }
   }
 });
 
