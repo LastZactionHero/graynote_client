@@ -232,4 +232,55 @@ describe('NoteSource', () => {
 
   });
 
+  describe("delete", () => {
+    var responseData;
+    var server;
+
+    beforeEach(function() { server = sinon.fakeServer.create(); })
+    afterEach(function() { server.restore(); });
+
+    describe("success", () => {
+      var deletedNote = 99;
+
+      beforeEach(function(done){
+        NoteSource.delete(token, deletedNote).then(
+          function(data){
+            responseData = data;
+            done();
+          }, null);
+
+        server.requests[0].respond(200, { "Content-Type": "application/json" }, '{}');
+      });
+
+      it("should return success", () => {
+        expect(responseData).to.eql(deletedNote)
+      });
+
+    });
+
+    describe("failure", () => {
+      var responseError = {errors: {title: ["is invalid"]}};
+
+      beforeEach(function(done){
+        NoteSource.delete(token, 1).then(
+          null,
+          function(data){
+            responseData = data;
+            done();
+          });
+
+        server.requests[0].respond(
+          400,
+          { "Content-Type": "application/json" },
+          JSON.stringify(responseError));
+      });
+
+      it("should return success data", () => {
+        expect(responseData).to.eql(responseError);
+      });
+
+    });
+
+  });
+
 });

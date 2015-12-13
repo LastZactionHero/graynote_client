@@ -7,7 +7,9 @@ class NoteListStore {
     this.error = null;
     this.bindListeners({
       handleNotesFetched: NoteActions.NOTES_FETCHED,
-      handleNotesFailed: NoteActions.NOTES_FETCHED_FAILED
+      handleNotesFailed: NoteActions.NOTES_FETCHED_FAILED,
+      handleNoteDeleted: NoteActions.NOTE_DELETED,
+      handleNoteDeleteFailed: NoteActions.NOTE_DELETE_FAILED
     });
   }
   handleNotesFetched(notes) {
@@ -15,6 +17,16 @@ class NoteListStore {
     this.error = null;
   }
   handleNotesFailed(error) {
+    this.error = error;
+  }
+  handleNoteDeleted(noteId) {
+    var newNotes = [];
+    for(var i = 0; i < this.notes.length; i++){
+      if(this.notes[i].id != noteId){newNotes.push(this.notes[i]);}
+    }
+    this.notes = newNotes;
+  }
+  handleNoteDeleteFailed(error) {
     this.error = error;
   }
 }

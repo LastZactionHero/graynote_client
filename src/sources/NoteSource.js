@@ -81,6 +81,24 @@ var NoteSource = {
         }
       });
     });
+  },
+  delete: function(token, id) {
+    return new Promise(function(resolve, reject){
+      $.ajax({
+        url: 'http://graynote.io:8181/notes/' + id,
+        type: 'DELETE',
+        headers: {
+          'X-Auth-Token': token
+        },
+        success: function() {
+          resolve(id);
+        },
+        error: function(xhr) {
+          var msg = xhr.responseText ? $.parseJSON(xhr.responseText) : 'unknown';
+          reject(msg);
+        }
+      })
+    });
   }
 }
 

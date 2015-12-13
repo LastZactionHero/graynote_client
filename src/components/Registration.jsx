@@ -52,7 +52,7 @@ var Registration = React.createClass({
   render() {
     if(this.state.token){
       return(
-        <div className='alert alert-success'>{this.state.token}</div>
+        <div></div>
       )
     } else {
       return (

@@ -11,6 +11,12 @@ import AltTestingUtils from 'alt/utils/AltTestingUtils';
 
 describe('NoteStore', function(){
 
+  it('listens for newNote action', function(){
+    var action = noteActions.NEW_NOTE;
+    alt.dispatcher.dispatch({action});
+    expect(wrappedNoteStore.getState().note).to.eql({});
+  });
+
   it('listens for noteSaved action', function(){
     var data = {id: 1, title: 'title', body: 'body'};
     var action = noteActions.NOTE_SAVED;

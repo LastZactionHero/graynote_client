@@ -2,8 +2,11 @@ var alt = require('../components/alt');
 var NoteSource = require('../sources/NoteSource')
 
 class NoteActions {
+  newNote() {
+    this.dispatch();
+  }
   clearNote() {
-    this.dispatch()
+    this.dispatch();
   }
   showNote(token, id) {
     this.dispatch();
@@ -49,6 +52,19 @@ class NoteActions {
   noteFetchFailed(error) {
     this.dispatch(error)
   }
+  deleteNote(token, id) {
+    this.dispatch();
+    NoteSource.delete(token, id).then(
+      this.actions.noteDeleted,
+      this.actions.noteDeleteFailed);
+  }
+  noteDeleted(id){
+    this.dispatch(id);
+  }
+  noteDeleteFailed(error){
+    this.dispatch(error);
+  }
+
 }
 
 module.exports = alt.createActions(NoteActions)

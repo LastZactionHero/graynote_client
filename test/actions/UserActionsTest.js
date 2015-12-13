@@ -22,7 +22,7 @@ describe('UserActions', () => {
       alt.dispatcher.dispatch.restore();
     });
 
-    it("dispatches updateLoggedIn after successful registration", () => {
+    it("dispatches updateLoggedIn after successful registration", (done) => {
       var token = "abc123"
       userActions.registerUser("email", "password");
 
@@ -36,11 +36,12 @@ describe('UserActions', () => {
         expect(dispatcherSpy.args[0][0].type).to.equal("UserActions.registerUser")
         expect(dispatcherSpy.args[1][0].type).to.equal("UserActions.updateLoggedIn")
         expect(dispatcherSpy.args[1][0].payload).to.equal(token)
+        done();
       });
     });
 
 
-    it("dispatches updateRegistrationFailed after failed registration", () => {
+    it("dispatches updateRegistrationFailed after failed registration", (done) => {
       var expectedError = {error: {email: ["invalid"]}};
       userActions.registerUser("email", "password");
 
@@ -53,7 +54,8 @@ describe('UserActions', () => {
       setTimeout(function(){
         expect(dispatcherSpy.args[0][0].type).to.equal("UserActions.registerUser")
         expect(dispatcherSpy.args[1][0].type).to.equal("UserActions.updateRegistrationFailed")
-        expect(dispatcherSpy.args[1][0].payload).to.equal(expectedError)
+        expect(dispatcherSpy.args[1][0].payload).to.eql(expectedError)
+        done();
       });
     });
 
@@ -73,7 +75,7 @@ describe('UserActions', () => {
       alt.dispatcher.dispatch.restore();
     });
 
-    it("dispatches updateLoggedIn after successful login", () => {
+    it("dispatches updateLoggedIn after successful login", (done) => {
       var token = "abc123"
       userActions.loginUser("email", "password");
 
@@ -87,11 +89,12 @@ describe('UserActions', () => {
         expect(dispatcherSpy.args[0][0].type).to.equal("UserActions.loginUser")
         expect(dispatcherSpy.args[1][0].type).to.equal("UserActions.updateLoggedIn")
         expect(dispatcherSpy.args[1][0].payload).to.equal(token)
+        done();
       });
     });
 
 
-    it("dispatches updateRegistrationFailed after failed registration", () => {
+    it("dispatches updateRegistrationFailed after failed login", (done) => {
       var expectedError = {error: {email: ["invalid"]}};
       userActions.loginUser("email", "password");
 
@@ -103,8 +106,9 @@ describe('UserActions', () => {
 
       setTimeout(function(){
         expect(dispatcherSpy.args[0][0].type).to.equal("UserActions.loginUser")
-        expect(dispatcherSpy.args[1][0].type).to.equal("UserActions.updateRegistrationFailed")
-        expect(dispatcherSpy.args[1][0].payload).to.equal(expectedError)
+        expect(dispatcherSpy.args[1][0].type).to.equal("UserActions.updateLoginFailed")
+        expect(dispatcherSpy.args[1][0].payload).to.eql(expectedError)
+        done();
       });
     });
 

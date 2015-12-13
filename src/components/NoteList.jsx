@@ -22,12 +22,9 @@ var NoteList = React.createClass({
     var noteList = this.state.notes ?
       this.state.notes.map(function(i){return <NoteListItem note={i} token={token}></NoteListItem>;}) : '';
     return(
-      <div>
-        <h2>Note List</h2>
-        <ul>
-          {noteList}
-        </ul>
-      </div>
+      <ul className='noteList'>
+        {noteList}
+      </ul>
     );
   }
 });

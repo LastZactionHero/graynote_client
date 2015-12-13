@@ -7,6 +7,7 @@ import Note from './Note';
 import NoteList from './NoteList';
 import UserStore from '../stores/UserStore';
 import NoteStore from '../stores/NoteStore';
+import NoteActions from '../actions/NoteActions';
 
 var App = React.createClass({
   getInitialState() {
@@ -23,6 +24,9 @@ var App = React.createClass({
   onChange(state) {
     this.setState(state)
   },
+  handleNewNote() {
+    NoteActions.newNote();
+  },
   render() {
     return (
       <div>
@@ -31,7 +35,7 @@ var App = React.createClass({
             <ul className='nav navbar-nav'>
               <li>graynote</li>
               <li>List Notes</li>
-              <li>New Note</li>
+              <li><a href='#' onClick={this.handleNewNote} className='btn btn-default'>New Note</a></li>
               <li>Search Bar</li>
               <li>Loading</li>
               <li>Log In</li>

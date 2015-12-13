@@ -27,4 +27,40 @@ describe('NoteListStore', function(){
     expect(wrappedNoteListStore.getState().error).to.equal(data);
   });
 
+  describe('delete', function(){
+    var notes = [{id: 1, title: 'my note', body: 'hello world'}];
+
+    beforeEach(function(){
+      var action = noteActions.NOTES_FETCHED;
+      var data = notes;
+      alt.dispatcher.dispatch({action, data});
+    });
+
+    it('listens for note deleted and removes note', function(){
+      var action = noteActions.NOTE_DELETED;
+      var data = 1;
+      alt.dispatcher.dispatch({action, data});
+
+      expect(wrappedNoteListStore.getState().notes).to.eql([]);
+    });
+
+    it('listens for note deleted and removes nothing if DNE', function(){
+      var action = noteActions.NOTE_DELETED;
+      var data = 99;
+      alt.dispatcher.dispatch({action, data});
+
+      expect(wrappedNoteListStore.getState().notes).to.eql(notes);
+    });
+
+    it('listens for note delete failure', function(){
+      var action = noteActions.NOTE_DELETE_FAILED;
+      var data = {errors: {}};
+      alt.dispatcher.dispatch({action, data});
+
+      expect(wrappedNoteListStore.getState().notes).to.eql(notes);
+      expect(wrappedNoteListStore.getState().error).to.eql(data);
+    });
+
+  });
+
 });

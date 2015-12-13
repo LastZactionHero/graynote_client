@@ -8,7 +8,7 @@ var NoteListItem = React.createClass({
   },
   handleDeleteNote(e) {
     e.preventDefault();
-    alert("Deleting")
+    NoteActions.deleteNote(this.props.token, this.props.note.id);
   },
   render() {
     return(

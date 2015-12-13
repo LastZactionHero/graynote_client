@@ -10,12 +10,13 @@ class NoteStore {
       handleNoteFailed: NoteActions.NOTE_FAILED,
       handleNoteFetched: NoteActions.NOTE_FETCHED,
       handleNoteFetchFailed: NoteActions.NOTE_FETCH_FAILED,
-      handleClearNote: NoteActions.CLEAR_NOTE
+      handleClearNote: NoteActions.CLEAR_NOTE,
+      handleNewNote: NoteActions.NEW_NOTE
     });
   }
   handleNoteSaved(note){
     this.error = null;
-    this.note = note;
+    this.note.id = note.id;
   }
   handleNoteFailed(error){
     this.error = error;
@@ -29,6 +30,10 @@ class NoteStore {
   }
   handleClearNote() {
     this.note = null;
+    this.error = null;
+  }
+  handleNewNote() {
+    this.note = {};
     this.error = null;
   }
 }
