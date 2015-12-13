@@ -2,6 +2,9 @@ var alt = require('../components/alt');
 var NoteSource = require('../sources/NoteSource')
 
 class NoteActions {
+  clearNote() {
+    this.dispatch()
+  }
   showNote(token, id) {
     this.dispatch();
     NoteSource.show(token, id).then(

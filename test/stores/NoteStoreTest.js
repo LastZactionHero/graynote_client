@@ -45,4 +45,16 @@ describe('NoteStore', function(){
 
   });
 
+  it('listens for clearNote', function(){
+    // Setup active note
+    var data = {id: 99, title: 'latest note'};
+    var action = noteActions.NOTE_FETCHED;
+    alt.dispatcher.dispatch({action, data});
+
+    // Clear the note
+    var action = noteActions.CLEAR_NOTE;
+    alt.dispatcher.dispatch({action});
+    expect(wrappedNoteStore.getState().note).to.equal(null);
+  });
+
 });

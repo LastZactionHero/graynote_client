@@ -21,6 +21,13 @@ describe("NoteActions", function(){
     alt.dispatcher.dispatch.restore();
   });
 
+  describe('clearNote', function(){
+    it('dispatches clearNote', function(){
+      noteActions.clearNote();
+      expect(dispatcherSpy.args[0][0].type).to.equal("NoteActions.clearNote")
+    });
+  });
+
   describe("createNote", function(){
 
     it("dispatches noteSaved after note is created", function(){

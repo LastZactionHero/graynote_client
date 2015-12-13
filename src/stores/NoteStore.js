@@ -9,7 +9,8 @@ class NoteStore {
       handleNoteSaved: NoteActions.NOTE_SAVED,
       handleNoteFailed: NoteActions.NOTE_FAILED,
       handleNoteFetched: NoteActions.NOTE_FETCHED,
-      handleNoteFetchFailed: NoteActions.NOTE_FETCH_FAILED
+      handleNoteFetchFailed: NoteActions.NOTE_FETCH_FAILED,
+      handleClearNote: NoteActions.CLEAR_NOTE
     });
   }
   handleNoteSaved(note){
@@ -25,6 +26,10 @@ class NoteStore {
   }
   handleNoteFetchFailed(error){
     this.error = error;
+  }
+  handleClearNote() {
+    this.note = null;
+    this.error = null;
   }
 }
 

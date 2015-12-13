@@ -43,12 +43,16 @@ var Note = React.createClass({
         this.state.note.body.trim());
     }
   },
+  done() {
+    NoteActions.clearNote();
+  },
   render() {
     if(this.state.note) {
       return(
         <div>
           <h2>Note: {this.state.note.id}</h2>
           <h3>Token: {this.props.token}</h3>
+          <a className='btn btn-Primary' onClick={this.done}>Done</a>
           <div className='form-group'>
             <label>Title</label>
             <input
