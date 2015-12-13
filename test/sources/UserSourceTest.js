@@ -12,7 +12,7 @@ describe('UserSource', () => {
     var server;
 
     beforeEach(function() { server = sinon.fakeServer.create(); })
-    after(function () { server.restore(); });
+    afterEach(function() { server.restore(); });
 
     describe("success", () => {
       var responseSuccess = {token: "mytoken123"}

@@ -3,7 +3,7 @@ var UserActions = require('../actions/UserActions')
 
 class UserStore {
   constructor() {
-    this.token = null;
+    this.token = this.restoreSavedToken();
     this.error = null;
     this.bindListeners({
       handleUpdateLoggedIn: UserActions.UPDATE_LOGGED_IN,
@@ -14,6 +14,7 @@ class UserStore {
   handleUpdateLoggedIn(token) {
     this.error = null;
     this.token = token;
+    this.saveTokenLocally(token)
   }
   handleUpdateLoginFailed(error) {
     this.token = null;
@@ -22,6 +23,12 @@ class UserStore {
   handleUpdateRegistrationFailed(error) {
     this.token = null;
     this.error = error;
+  }
+  saveTokenLocally(token) {
+    localStorage.setItem('token', token)
+  }
+  restoreSavedToken() {
+    return localStorage.getItem('token')
   }
 }
 

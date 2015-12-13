@@ -3,9 +3,6 @@ var $;
 $ = require('jquery');
 
 var UserSource = {
-  hello: function(){
-    return true;
-  },
   register: function(email, password) {
     return new Promise(function (resolve, reject) {
       $.post('http://graynote.io:8181/users/register',

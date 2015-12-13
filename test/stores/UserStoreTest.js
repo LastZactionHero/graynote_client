@@ -11,6 +11,20 @@ import userActions from 'actions/UserActions'
 import AltTestingUtils from 'alt/utils/AltTestingUtils';
 
 describe("UserStore", () => {
+  var store = {};
+  beforeEach(function(){
+    sinon.stub(localStorage, 'setItem', function(key, value){
+      store[key] = value
+    })
+    sinon.stub(localStorage, 'getItem', function(key) {
+      return store[key]
+    });
+  });
+
+  afterEach(function(){
+      localStorage.setItem.restore();
+      localStorage.getItem.restore();
+  });
 
   it("listens for update logged in action", () => {
     var oldToken = wrappedUserStore.getState().token;
@@ -37,4 +51,15 @@ describe("UserStore", () => {
     alt.dispatcher.dispatch({action, data});
     expect(wrappedUserStore.getState().error).to.equal(data)
   });
+
+  it("saves the token locally", () => {
+    var oldToken = wrappedUserStore.getState().token;
+
+    var action = userActions.UPDATE_LOGGED_IN;
+    var data = 'abc123';
+
+    alt.dispatcher.dispatch({action, data});
+    expect(store.token).to.equal(data)
+  });
+
 });
