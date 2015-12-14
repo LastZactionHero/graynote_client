@@ -41,19 +41,21 @@ var App = React.createClass({
             <div className="navbar-header">
               <a className="navbar-brand" href="#">graynote</a>
             </div>
-            <ul className='nav navbar-nav'>
-              <li><a href='#' onClick={this.handleListNotes}><i className='fa fa-list'></i></a></li>
-              <li><a href='#' onClick={this.handleNewNote}><i className='fa fa-plus'></i></a></li>
-              <form className="navbar-form navbar-left" role="search">
-                <div className="form-group">
-                  <input type="text" className="form-control" placeholder="Search" />
-                </div>
-              </form>
-            </ul>
-            <ul className='nav navbar-nav navbar-right'>
-              <li><a href='#'><i className='fa fa-spinner'></i></a></li>
-              <li><a href='#'>Log Out</a></li>
-            </ul>
+            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul className='nav navbar-nav'>
+                <li><a href='#' onClick={this.handleListNotes}><i className='fa fa-list'></i></a></li>
+                <li><a href='#' onClick={this.handleNewNote}><i className='fa fa-plus'></i></a></li>
+                <form className="navbar-form navbar-left" role="search">
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Search" />
+                  </div>
+                </form>
+              </ul>
+              <ul className='nav navbar-nav navbar-right'>
+                <li><a href='#'><i className='fa fa-spinner'></i></a></li>
+                <li><a href='#'>Log Out</a></li>
+              </ul>
+            </div>
           </div>
         </nav>
         <div className='container-fluid'>
