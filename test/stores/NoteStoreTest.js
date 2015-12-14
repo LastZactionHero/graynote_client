@@ -22,7 +22,7 @@ describe('NoteStore', function(){
     var action = noteActions.NOTE_SAVED;
 
     alt.dispatcher.dispatch({action, data});
-    expect(wrappedNoteStore.getState().note).to.equal(data);
+    expect(wrappedNoteStore.getState().note).to.eql({id: 1});
   });
 
   it('listens for noteFailed action', function(){
