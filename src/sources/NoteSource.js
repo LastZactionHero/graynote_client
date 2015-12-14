@@ -5,7 +5,7 @@ var NoteSource = {
   index: function(token) {
     return new Promise(function(resolve, reject) {
       $.ajax({
-        url: 'http://api.graynote.io/notes',
+        url: API_HOST + '/notes',
         type: 'GET',
         headers: {
           'X-Auth-Token': token
@@ -23,7 +23,7 @@ var NoteSource = {
   show: function(token, id) {
     return new Promise(function(resolve, reject) {
       $.ajax({
-        url: 'http://api.graynote.io/notes/' + id,
+        url: API_HOST + '/notes/' + id,
         type: 'GET',
         headers: {
           'X-Auth-Token': token
@@ -41,7 +41,7 @@ var NoteSource = {
   create: function(token, title, body) {
     return new Promise(function(resolve, reject) {
       $.ajax({
-        url: 'http://api.graynote.io/notes',
+        url: API_HOST + '/notes',
         type: 'POST',
         data: {
           title: title,
@@ -63,7 +63,7 @@ var NoteSource = {
   update: function(token, id, title, body) {
     return new Promise(function(resolve, reject){
       $.ajax({
-        url: 'http://api.graynote.io/notes/' + id,
+        url: API_HOST + '/notes/' + id,
         type: 'PUT',
         data: {
           title: title,
@@ -85,7 +85,7 @@ var NoteSource = {
   delete: function(token, id) {
     return new Promise(function(resolve, reject){
       $.ajax({
-        url: 'http://api.graynote.io/notes/' + id,
+        url: API_HOST + '/notes/' + id,
         type: 'DELETE',
         headers: {
           'X-Auth-Token': token

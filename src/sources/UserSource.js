@@ -5,7 +5,7 @@ $ = require('jquery');
 var UserSource = {
   register: function(email, password) {
     return new Promise(function (resolve, reject) {
-      $.post('http://api.graynote.io/users/register',
+      $.post(API_HOST + '/users/register',
         {
           email: email,
           password: password
@@ -19,7 +19,7 @@ var UserSource = {
   },
   login: function(email, password) {
     return new Promise(function (resolve, reject) {
-      $.post('http://api.graynote.io/users/login',
+      $.post(API_HOST + '/users/login',
         {
           email: email,
           password: password
