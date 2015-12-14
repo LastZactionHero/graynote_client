@@ -1,6 +1,7 @@
 var React = require('react');
 var NoteStore = require('../stores/NoteStore');
 var NoteActions = require('../actions/NoteActions');
+var ResizeTextArea = require('react-textarea-autosize');
 
 var Note = React.createClass({
   getInitialState() {
@@ -69,10 +70,10 @@ var Note = React.createClass({
             </div>
             <div className='form-group'>
               <label>Note</label>
-              <textarea
-                className='form-control'
+              <ResizeTextArea
+                className='form-control js-auto-size'
                 value={this.state.note.body}
-                onChange={this.handleBodyChange}></textarea>
+                onChange={this.handleBodyChange}></ResizeTextArea>
             </div>
             <hr/>
             {this.state.note.id ?
