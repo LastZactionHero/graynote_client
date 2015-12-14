@@ -225,4 +225,23 @@ describe("NoteActions", function(){
     });
 
   });
+
+  describe('switchModeEdit', function(){
+
+    it('dispatches switchModeEdit', function(){
+      noteActions.switchModeEdit();
+      expect(dispatcherSpy.args[0][0].type).to.equal('NoteActions.switchModeEdit');
+    });
+
+  });
+
+  describe('switchModeView', function(){
+
+    it('dispatches switchModeView', function(){
+      noteActions.switchModeView();
+      expect(dispatcherSpy.args[0][0].type).to.equal('NoteActions.switchModeView');
+    });
+
+  });
+
 });

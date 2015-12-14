@@ -64,7 +64,12 @@ class NoteActions {
   noteDeleteFailed(error){
     this.dispatch(error);
   }
-
+  switchModeView() {
+    this.dispatch();
+  }
+  switchModeEdit() {
+    this.dispatch();
+  }
 }
 
 module.exports = alt.createActions(NoteActions)

@@ -1,0 +1,32 @@
+@subtext-gray: #888888;
+@light-gray: #EEEEEE;
+@white: white;
+@action-dark-gray: #67809F;
+
+.noteList {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+
+  li {
+    background-color: @light-gray;
+    padding: 10px 20px;
+    position: relative;
+    cursor: pointer;
+
+    p {
+      color: @subtext-gray;
+    }
+
+    .trash {
+      text-align: right;
+      font-size: 2em;
+    }
+    .trash:hover {
+      color: @action-dark-gray;
+    }
+  }
+  li:nth-child(even){
+    background-color: @white;
+  }
+};

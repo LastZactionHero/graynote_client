@@ -1,2 +1,4 @@
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import "./NoteList.css";
+@import "../../node_modules/font-awesome/css/font-awesome.css";
+
+body { padding-top: 70px; }

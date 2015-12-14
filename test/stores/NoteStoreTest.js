@@ -11,10 +11,20 @@ import AltTestingUtils from 'alt/utils/AltTestingUtils';
 
 describe('NoteStore', function(){
 
+  it('initializes with mode view', function(){
+    expect(wrappedNoteStore.getState().mode).to.eql('view');
+  });
+
   it('listens for newNote action', function(){
     var action = noteActions.NEW_NOTE;
     alt.dispatcher.dispatch({action});
     expect(wrappedNoteStore.getState().note).to.eql({});
+  });
+
+  it('sets mode to edit on new note', function(){
+    var action = noteActions.NEW_NOTE;
+    alt.dispatcher.dispatch({action});
+    expect(wrappedNoteStore.getState().mode).to.eql('edit');
   });
 
   it('listens for noteSaved action', function(){
@@ -51,16 +61,42 @@ describe('NoteStore', function(){
 
   });
 
-  it('listens for clearNote', function(){
-    // Setup active note
-    var data = {id: 99, title: 'latest note'};
-    var action = noteActions.NOTE_FETCHED;
-    alt.dispatcher.dispatch({action, data});
+  describe('clearNote', function(){
 
-    // Clear the note
-    var action = noteActions.CLEAR_NOTE;
+    beforeEach(function(){
+      // Setup active note
+      var data = {id: 99, title: 'latest note'};
+      var action = noteActions.NOTE_FETCHED;
+      alt.dispatcher.dispatch({action, data});
+    });
+
+    it('listens for clearNote', function(){
+      // Clear the note
+      var action = noteActions.CLEAR_NOTE;
+      alt.dispatcher.dispatch({action});
+      expect(wrappedNoteStore.getState().note).to.equal(null);
+    });
+
+    it('sets mode to view', function(){
+      // Clear the note
+      var action = noteActions.CLEAR_NOTE;
+      alt.dispatcher.dispatch({action});
+      expect(wrappedNoteStore.getState().mode).to.equal('view');
+    });
+
+  });
+
+  it('response to switchModeView', function(){
+    var action = noteActions.SWITCH_MODE_VIEW;
     alt.dispatcher.dispatch({action});
-    expect(wrappedNoteStore.getState().note).to.equal(null);
+    expect(wrappedNoteStore.getState().mode).to.equal('view');
+  });
+
+  it('response to switchModeEdit', function(){
+    var action = noteActions.SWITCH_MODE_EDIT;
+    alt.dispatcher.dispatch({action});
+    expect(wrappedNoteStore.getState().mode).to.equal('edit');
+
   });
 
 });

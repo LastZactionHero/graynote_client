@@ -43,34 +43,65 @@ var Note = React.createClass({
         this.state.note.body.trim());
     }
   },
+  handleViewMode(e) {
+    e.preventDefault();
+    NoteActions.switchModeView();
+  },
+  handleEditMode(e){
+    e.preventDefault();
+    NoteActions.switchModeEdit();
+  },
   done() {
     NoteActions.clearNote();
   },
   render() {
     if(this.state.note) {
-      return(
-        <div>
-          <h2>Note: {this.state.note.id}</h2>
-          <h3>Token: {this.props.token}</h3>
-          <a className='btn btn-Primary' onClick={this.done}>Done</a>
-          <div className='form-group'>
-            <label>Title</label>
-            <input
-              type='text'
-              className='form-control'
-              value={this.state.note.title}
-              onChange={this.handleTitleChange}></input>
+      if(this.state.mode == 'edit') {
+        return(
+          <div>
+            <div className='form-group'>
+              <label>Title</label>
+              <input
+                type='text'
+                className='form-control'
+                value={this.state.note.title}
+                onChange={this.handleTitleChange}></input>
+            </div>
+            <div className='form-group'>
+              <label>Note</label>
+              <textarea
+                className='form-control'
+                value={this.state.note.body}
+                onChange={this.handleBodyChange}></textarea>
+            </div>
+            <hr/>
+            {this.state.note.id ?
+              <a href='#' className='btn btn-success' onClick={this.handleViewMode}>
+                <i className='fa fa-check'></i>&nbsp;&nbsp;Done
+              </a> : ''
+            }
           </div>
-          <div className='form-group'>
-            <label>Note</label>
-            <textarea
-              className='form-control'
-              value={this.state.note.body}
-              onChange={this.handleBodyChange}></textarea>
+        )
+      } else {
+        return(
+          <div>
+            <h2>
+              <a href='#' className='btn btn-success' onClick={this.handleEditMode}>
+                <i className='fa fa-pencil'></i>
+              </a>&nbsp;&nbsp;
+              {this.state.note.title}
+            </h2>
+            <hr/>
+            {this.state.note.body.split("\n").map(function(block) {
+              return (
+                <p>
+                  {block}
+                </p>
+              )
+            })}
           </div>
-          <div>Saving...</div>
-        </div>
-      )
+        )
+      }
     } else {
       return(
         <h2>No Active Note</h2>
