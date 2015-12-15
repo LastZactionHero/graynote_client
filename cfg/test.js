@@ -1,5 +1,6 @@
 var path = require('path');
 var srcPath = path.join(__dirname, '/../src/');
+var webpack = require('webpack');
 
 // Add needed plugins here
 var BowerWebpackPlugin = require('bower-webpack-plugin');
@@ -46,6 +47,9 @@ module.exports = {
   plugins: [
     new BowerWebpackPlugin({
       searchResolveModulesDirectories: false
+    }),
+    new webpack.DefinePlugin({
+        API_HOST: JSON.stringify("http://apilocal.graynote.io:8181")
     })
   ]
 };
