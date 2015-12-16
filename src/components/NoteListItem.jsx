@@ -12,7 +12,7 @@ var NoteListItem = React.createClass({
   },
   truncateSummaryText(text) {
     var max_summary_len = 256;
-    var summary = text.replace(/(<([^>]+)>)/ig,"");    
+    var summary = text.replace(/(<([^>]+)>)/ig," ");
     if(text.length > max_summary_len) {
       summary = summary.slice(0, max_summary_len) + "...";
     }
