@@ -89,26 +89,34 @@ var Note = React.createClass({
 
         <div className={this.state.mode == 'edit' ? "" : "hidden"}>
           <div className='form-group'>
-            <label>Title</label>
             <input
               type='text'
-              className='form-control'
+              className='form-control input-lg'
               value={this.state.note.title}
+              placeholder="Note Title"
               onChange={this.handleTitleChange}></input>
           </div>
           <div className='form-group'>
             <label>Note</label>
             <div className="noteToolbar">
-              <select className="btn btn-default ql-size">
+              <select tabIndex="-1" className="ql-size input-sm btn btn-default">
                 <option value="10px">Small</option>
                 <option value="13px" selected>Normal</option>
                 <option value="18px">Large</option>
                 <option value="32px">Huge</option>
               </select>
-              <button className="btn btn-default ql-bold">Bold</button>
-              <button className="btn btn-default ql-italic">Italic</button>
-              <button className="btn btn-default ql-strike">Strikethrough</button>
-              <button className="btn btn-default ql-underline">Underline</button>
+              <button tabIndex="-1" className="btn btn-default ql-bold">
+                <i className="fa fa-bold"></i>
+              </button>
+              <button tabIndex="-1" className="btn btn-default ql-italic">
+                <i className="fa fa-italic"></i>
+              </button>
+              <button tabIndex="-1" className="btn btn-default ql-strike">
+                <i className="fa fa-strikethrough"></i>
+              </button>
+              <button tabIndex="-1" className="btn btn-default ql-underline">
+                <i className="fa fa-underline"></i>
+              </button>
             </div>
 
             <div className='noteEditor' tabindex="1"></div>
