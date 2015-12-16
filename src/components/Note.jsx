@@ -17,7 +17,7 @@ var Note = React.createClass({
     NoteStore.unlisten(this.onChange);
   },
   configureQuill() {
-    this.quillEditor = new Quill('.noteEditor')
+    this.quillEditor = new Quill('.noteEditor', {modules: {'link-tooltip': true}});
     this.quillEditor.addModule('toolbar', { container: '.noteToolbar' });
     if(this.state.note.body){
       this.quillEditor.setHTML(this.state.note.body);
@@ -97,7 +97,6 @@ var Note = React.createClass({
               onChange={this.handleTitleChange}></input>
           </div>
           <div className='form-group'>
-            <label>Note</label>
             <div className="noteToolbar">
               <select tabIndex="-1" className="ql-size input-sm btn btn-default">
                 <option value="10px">Small</option>
@@ -117,9 +116,12 @@ var Note = React.createClass({
               <button tabIndex="-1" className="btn btn-default ql-underline">
                 <i className="fa fa-underline"></i>
               </button>
+              <button tabIndex="-1" className="btn btn-default ql-link">
+                LInk
+              </button>
             </div>
 
-            <div className='noteEditor' tabindex="1"></div>
+            <div className='noteEditor'></div>
           </div>
           <hr/>
           {this.state.note.id ?
