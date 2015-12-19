@@ -1,5 +1,5 @@
 var alt = require('../components/alt');
-var NoteSource = require('../sources/NoteSource')
+var NoteSource = require('../sources/NoteSource');
 
 class NoteActions {
   newNote() {
@@ -15,9 +15,10 @@ class NoteActions {
       this.actions.noteFetchFailed
     )
   }
-  listNotes(token) {
+  listNotes(token, query) {
     this.dispatch();
-    NoteSource.index(token).then(
+
+    NoteSource.index(token, query).then(
       this.actions.notesFetched,
       this.actions.notesFetchedFailed
     );

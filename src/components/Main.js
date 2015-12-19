@@ -13,7 +13,6 @@ import NoteList from './NoteList';
 import UserStore from '../stores/UserStore';
 import NoteStore from '../stores/NoteStore';
 
-
 var App = React.createClass({
   getInitialState() {
     return UserStore.getState();

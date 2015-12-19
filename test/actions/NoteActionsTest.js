@@ -161,7 +161,7 @@ describe("NoteActions", function(){
 
     it("dispatches notesFetched after notes are received", function(done){
       var notes = [{id: 1, title: 'title', body: 'body'}];
-      noteActions.listNotes(token)
+      noteActions.listNotes(token);
 
       server.requests[0].respond(
         200,

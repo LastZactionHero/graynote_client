@@ -25,6 +25,34 @@ describe('NoteSource', () => {
             done();
           }, null);
 
+        expect(server.requests[0].url).to.equal('http://apilocal.graynote.io:8181/notes');
+        server.requests[0].respond(
+          200,
+          { "Content-Type": "application/json" },
+          JSON.stringify(responseSuccess)
+        );
+      });
+
+      it("should return success data", () => {
+        expect(responseData).to.eql(responseSuccess);
+      });
+
+    });
+
+    describe("success index with query string", () => {
+      var responseSuccess = [{id: 1, title: 'My Note', body: 'Note Body'}]
+      var query = "Hello world!"
+
+      beforeEach(function(done){
+        NoteSource.index(token, query).then(
+          function(data){
+            responseData = data;
+            done();
+          }, null);
+
+        expect(server.requests[0].url).to.
+          equal('http://apilocal.graynote.io:8181/notes?q=Hello world!');
+
         server.requests[0].respond(
           200,
           { "Content-Type": "application/json" },

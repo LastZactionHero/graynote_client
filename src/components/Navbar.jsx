@@ -1,5 +1,6 @@
 var React = require('react');
 import NoteActions from '../actions/NoteActions';
+import Search from './Search';
 
 var Navbar = React.createClass({
   handleNewNote(e) {
@@ -27,11 +28,7 @@ var Navbar = React.createClass({
             <ul className='nav navbar-nav'>
               <li><a href='#' onClick={this.handleListNotes}><i className='fa fa-list'></i>&nbsp;&nbsp;List All</a></li>
               <li><a href='#' onClick={this.handleNewNote}><i className='fa fa-plus'></i>&nbsp;&nbsp;New Note</a></li>
-              <form className="navbar-form navbar-left" role="search">
-                <div className="form-group">
-                  <input type="text" className="form-control" placeholder="Search" />
-                </div>
-              </form>
+              <Search></Search>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               <li><a href='#'>Log Out</a></li>

@@ -2,10 +2,13 @@ var Promise = require('promise');
 var $ = require('jquery');
 
 var NoteSource = {
-  index: function(token) {
+  index: function(token, query) {
     return new Promise(function(resolve, reject) {
+      var url = API_HOST + '/notes';
+      if(query){url += "?q=" + query};
+
       $.ajax({
-        url: API_HOST + '/notes',
+        url: url,
         type: 'GET',
         headers: {
           'X-Auth-Token': token
