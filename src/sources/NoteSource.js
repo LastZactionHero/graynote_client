@@ -5,7 +5,7 @@ var NoteSource = {
   index: function(token, query) {
     return new Promise(function(resolve, reject) {
       var url = API_HOST + '/notes';
-      if(query){url += "?q=" + query};
+      if(query){url += '?q=' + query}
 
       $.ajax({
         url: url,
