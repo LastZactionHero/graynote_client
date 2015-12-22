@@ -25,6 +25,9 @@ class UserActions {
       this.actions.updateLoginFailed
     )
   }
+  logOut() {
+    this.dispatch();
+  }
 }
 
 module.exports = alt.createActions(UserActions)

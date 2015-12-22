@@ -1,5 +1,6 @@
 var alt = require('../components/alt');
 var NoteActions = require('../actions/NoteActions');
+var UserActions = require('../actions/UserActions');
 
 class NoteListStore {
   constructor() {
@@ -9,8 +10,13 @@ class NoteListStore {
       handleNotesFetched: NoteActions.NOTES_FETCHED,
       handleNotesFailed: NoteActions.NOTES_FETCHED_FAILED,
       handleNoteDeleted: NoteActions.NOTE_DELETED,
-      handleNoteDeleteFailed: NoteActions.NOTE_DELETE_FAILED
+      handleNoteDeleteFailed: NoteActions.NOTE_DELETE_FAILED,
+      handleNotesCleared: UserActions.LOG_OUT
     });
+  }
+  handleNotesCleared() {
+    this.notes = null;
+    this.error = null;
   }
   handleNotesFetched(notes) {
     this.notes = notes;

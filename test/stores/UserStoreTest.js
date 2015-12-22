@@ -62,4 +62,10 @@ describe("UserStore", () => {
     expect(store.token).to.equal(data)
   });
 
+  it('listens for log out action', function(){
+    var action = userActions.LOG_OUT;
+    alt.dispatcher.dispatch({action});
+    expect(wrappedUserStore.getState().token).to.equal(null);
+  });
+
 });

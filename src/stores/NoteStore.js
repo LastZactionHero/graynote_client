@@ -1,5 +1,6 @@
 var alt = require('../components/alt');
 var NoteActions = require('../actions/NoteActions');
+var UserActions = require('../actions/UserActions');
 
 class NoteStore {
   constructor() {
@@ -11,7 +12,7 @@ class NoteStore {
       handleNoteFailed: NoteActions.NOTE_FAILED,
       handleNoteFetched: NoteActions.NOTE_FETCHED,
       handleNoteFetchFailed: NoteActions.NOTE_FETCH_FAILED,
-      handleClearNote: NoteActions.CLEAR_NOTE,
+      handleClearNote: [UserActions.LOG_OUT, NoteActions.CLEAR_NOTE],
       handleNewNote: NoteActions.NEW_NOTE,
       handleSwitchModeView: NoteActions.SWITCH_MODE_VIEW,
       handleSwitchModeEdit: NoteActions.SWITCH_MODE_EDIT

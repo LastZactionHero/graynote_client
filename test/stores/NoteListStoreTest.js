@@ -6,6 +6,7 @@
 import alt from 'components/alt';
 import wrappedNoteListStore, {NoteListStore} from 'stores/NoteListStore';
 import noteActions from 'actions/NoteActions';
+import userActions from 'actions/UserActions';
 
 import AltTestingUtils from 'alt/utils/AltTestingUtils';
 
@@ -61,6 +62,16 @@ describe('NoteListStore', function(){
       expect(wrappedNoteListStore.getState().error).to.eql(data);
     });
 
+  });
+
+  describe('listens for log out', function(){
+
+    it('clears the note list', function(){
+      var action = userActions.LOG_OUT;
+      alt.dispatcher.dispatch({action});
+      expect(wrappedNoteListStore.getState().notes).to.eql(null);
+    });
+    
   });
 
 });

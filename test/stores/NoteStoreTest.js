@@ -6,6 +6,7 @@
 import alt from 'components/alt';
 import wrappedNoteStore, {NoteStore} from 'stores/NoteStore';
 import noteActions from 'actions/NoteActions';
+import userActions from 'actions/UserActions';
 
 import AltTestingUtils from 'alt/utils/AltTestingUtils';
 
@@ -96,7 +97,21 @@ describe('NoteStore', function(){
     var action = noteActions.SWITCH_MODE_EDIT;
     alt.dispatcher.dispatch({action});
     expect(wrappedNoteStore.getState().mode).to.equal('edit');
+  });
 
+  describe('listens for log out', function(){
+    beforeEach(function(){
+      // Setup active note
+      var data = {id: 99, title: 'latest note'};
+      var action = noteActions.NOTE_FETCHED;
+      alt.dispatcher.dispatch({action, data});
+    });
+
+    it('clears the active note', function(){
+      var action = userActions.LOG_OUT;
+      alt.dispatcher.dispatch({action});
+      expect(wrappedNoteStore.getState().note).to.equal(null);
+    });
   });
 
 });

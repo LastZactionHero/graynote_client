@@ -7,19 +7,26 @@ import alt from 'components/alt'
 import userActions from 'actions/UserActions'
 
 describe('UserActions', () => {
+  var dispatcherSpy;
+
+  beforeEach(function() {
+    dispatcherSpy = sinon.spy(alt.dispatcher, 'dispatch');
+  });
+
+  afterEach(function(){
+    alt.dispatcher.dispatch.restore();
+  });
+
 
   describe("registerUser", () => {
     var server;
-    var dispatcherSpy;
 
     beforeEach(function() {
       server = sinon.fakeServer.create();
-      dispatcherSpy = sinon.spy(alt.dispatcher, 'dispatch');
     });
 
     afterEach(function(){
       server.restore();
-      alt.dispatcher.dispatch.restore();
     });
 
     it("dispatches updateLoggedIn after successful registration", (done) => {
@@ -63,16 +70,13 @@ describe('UserActions', () => {
 
   describe("loginUser", () => {
     var server;
-    var dispatcherSpy;
 
     beforeEach(function() {
       server = sinon.fakeServer.create();
-      dispatcherSpy = sinon.spy(alt.dispatcher, 'dispatch');
     });
 
     afterEach(function(){
       server.restore();
-      alt.dispatcher.dispatch.restore();
     });
 
     it("dispatches updateLoggedIn after successful login", (done) => {
@@ -112,5 +116,14 @@ describe('UserActions', () => {
       });
     });
 
+  });
+
+  describe('logOut', function(){
+    describe('logOut', function(){
+      it('dispatches logOut', function(){
+        userActions.logOut();
+        expect(dispatcherSpy.args[0][0].type).to.equal('UserActions.logOut');
+      });
+    });
   });
 })

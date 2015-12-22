@@ -8,7 +8,8 @@ class UserStore {
     this.bindListeners({
       handleUpdateLoggedIn: UserActions.UPDATE_LOGGED_IN,
       handleUpdateRegistrationFailed: UserActions.UPDATE_REGISTRATION_FAILED,
-      handleUpdateLoginFailed: UserActions.UPDATE_LOGIN_FAILED
+      handleUpdateLoginFailed: UserActions.UPDATE_LOGIN_FAILED,
+      handleLogOut: UserActions.LOG_OUT
     })
   }
   handleUpdateLoggedIn(token) {
@@ -30,6 +31,10 @@ class UserStore {
   restoreSavedToken() {
     return localStorage.getItem('token')
   }
+  handleLogOut() {
+    this.token = null;
+  }
+
 }
 
 module.exports = alt.createStore(UserStore, 'UserStore')
