@@ -1,6 +1,7 @@
 require('normalize.css');
 require('styles/App.css');
 require('styles/NoteList.less');
+require('styles/Registration.less');
 
 window.jQuery = require('../../node_modules/jquery/dist/jquery.min.js')
 require('../../node_modules/bootstrap/dist/js/bootstrap.min.js');
