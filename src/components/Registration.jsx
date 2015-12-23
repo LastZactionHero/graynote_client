@@ -1,6 +1,7 @@
 var React = require('react');
 var UserStore = require('../stores/UserStore')
 var UserActions = require('../actions/UserActions')
+var NoteActions = require('../actions/NoteActions')
 
 var Registration = React.createClass({
   getInitialState() {
@@ -16,6 +17,12 @@ var Registration = React.createClass({
   },
   onChange(state) {
     this.setState(state);
+
+    // Load notes if newly signed in
+    var regObj = this;
+    setTimeout(function(){
+      if(regObj.state.token){NoteActions.listNotes(regObj.state.token);}
+    });
   },
   handleEmailChange(e) {
     this.setState({email: e.target.value});
