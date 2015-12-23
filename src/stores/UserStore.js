@@ -29,10 +29,11 @@ class UserStore {
     localStorage.setItem('token', token)
   }
   restoreSavedToken() {
-    return localStorage.getItem('token')
+    return localStorage.getItem('token');
   }
   handleLogOut() {
     this.token = null;
+    localStorage.removeItem('token');
   }
 
 }
