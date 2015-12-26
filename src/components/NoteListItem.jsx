@@ -8,7 +8,10 @@ var NoteListItem = React.createClass({
   },
   handleDeleteNote(e) {
     e.preventDefault();
-    NoteActions.deleteNote(this.props.token, this.props.note.id);
+    var confirmDelete = confirm("Are you sure you would like to delete this note?");
+    if(confirmDelete){
+      NoteActions.deleteNote(this.props.token, this.props.note.id);
+    }
   },
   truncateSummaryText(text) {
     var max_summary_len = 256;
@@ -20,8 +23,8 @@ var NoteListItem = React.createClass({
   },
   render() {
     return(
-      <li className='row' onClick={this.handleViewNote}>
-        <div className='col-md-11'>
+      <li className='row'>
+        <div className='col-md-11' onClick={this.handleViewNote}>
           <h3>{this.props.note.title}</h3>
           <p>
             {this.truncateSummaryText(this.props.note.body)}
