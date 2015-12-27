@@ -6,8 +6,11 @@ class NoteStore {
   constructor() {
     this.note = null;
     this.error = null;
+    this.saving = false;
     this.mode = 'view';
     this.bindListeners({
+      handleNoteSaveStarted: [NoteActions.CREATE_NOTE, NoteActions.UPDATE_NOTE],
+      handleNoteSaveEnded: [NoteActions.NOTE_SAVED, NoteActions.NOTE_FAILED],
       handleNoteSaved: NoteActions.NOTE_SAVED,
       handleNoteFailed: NoteActions.NOTE_FAILED,
       handleNoteFetched: NoteActions.NOTE_FETCHED,
@@ -17,6 +20,12 @@ class NoteStore {
       handleSwitchModeView: NoteActions.SWITCH_MODE_VIEW,
       handleSwitchModeEdit: NoteActions.SWITCH_MODE_EDIT
     });
+  }
+  handleNoteSaveStarted(){
+    this.saving = true
+  }
+  handleNoteSaveEnded(){
+    this.saving = false
   }
   handleNoteSaved(note){
     this.error = null;

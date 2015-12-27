@@ -6,6 +6,7 @@ var Quill = require('../../node_modules/quill/dist/quill.js');
 
 var Note = React.createClass({
   getInitialState() {
+    this.dirty = false;
     this.quillEditor = null;
     return NoteStore.getState();
   },
@@ -29,6 +30,13 @@ var Note = React.createClass({
   },
   onChange(state) {
     this.setState(state)
+
+    if(this.dirty && !state.saving){
+      setTimeout(function(){
+        this.dirty = false;
+        this.saveChanges();
+      })
+    }
   },
   handleTitleChange(e) {
     var state = this.state;
@@ -44,6 +52,10 @@ var Note = React.createClass({
   },
   saveChanges() {
     if(!this.state.note.title || !this.state.note.body){return;}
+    if(this.state.saving){
+      this.dirty = true;
+      return;
+    }
 
     if(this.state.note.id){
       NoteActions.updateNote(

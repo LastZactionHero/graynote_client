@@ -114,4 +114,43 @@ describe('NoteStore', function(){
     });
   });
 
+  describe('it listens for note save started events', function(){
+
+    it('sets saving on createNote', function(){
+      var action = noteActions.CREATE_NOTE;
+      alt.dispatcher.dispatch({action});
+      expect(wrappedNoteStore.getState().saving).to.equal(true);
+    });
+
+    it('sets saving on updateNote', function(){
+      var action = noteActions.UPDATE_NOTE;
+      alt.dispatcher.dispatch({action});
+      expect(wrappedNoteStore.getState().saving).to.equal(true);
+    });
+
+  });
+
+  describe('it listens for note save success and failed events', function(){
+    beforeEach(function(){
+      var action = noteActions.NEW_NOTE;
+      alt.dispatcher.dispatch({action});
+      
+      var action = noteActions.UPDATE_NOTE;
+      alt.dispatcher.dispatch({action});
+    });
+
+    it('unsets saving on save success', function(){
+      var action = noteActions.NOTE_SAVED;
+      var data = {id: 1, title: 'title', body: 'body'};
+      alt.dispatcher.dispatch({action, data});
+      expect(wrappedNoteStore.getState().saving).to.equal(false);
+    });
+
+    it('unsets saving on save fail', function(){
+      var action = noteActions.NOTE_FAILED;
+      alt.dispatcher.dispatch({action});
+      expect(wrappedNoteStore.getState().saving).to.equal(false);
+    });
+  });
+
 });
