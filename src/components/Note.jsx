@@ -3,6 +3,7 @@ var NoteStore = require('../stores/NoteStore');
 var NoteActions = require('../actions/NoteActions');
 var ResizeTextArea = require('react-textarea-autosize');
 var Quill = require('../../node_modules/quill/dist/quill.js');
+var NoteShare = require('./NoteShare');
 
 var Note = React.createClass({
   getInitialState() {
@@ -88,60 +89,67 @@ var Note = React.createClass({
     if(this.state.note) {
       return(
         <div>
-        <div className={this.state.mode == 'edit' ? "hidden" : ""}>
-          <h2>
-            <a href='#' className='btn btn-success' onClick={this.handleEditMode}>
-              <i className='fa fa-pencil'></i>
-            </a>&nbsp;&nbsp;
-            {this.state.note.title}
-          </h2>
-          <hr/>
-          <div dangerouslySetInnerHTML={this.createBodyMarkup()}></div>
-        </div>
-
-        <div className={this.state.mode == 'edit' ? "" : "hidden"}>
-          <div className='form-group'>
-            <input
-              type='text'
-              className='form-control input-lg'
-              value={this.state.note.title}
-              placeholder="Note Title"
-              onChange={this.handleTitleChange}></input>
+          <div className={this.state.mode == 'edit' ? "hidden" : ""}>
+            <h2>
+              <a href='#' className='btn btn-success' onClick={this.handleEditMode}>
+                <i className='fa fa-pencil'></i>
+              </a>&nbsp;&nbsp;
+              {this.state.note.title}
+            </h2>
+            <hr/>
+            <div dangerouslySetInnerHTML={this.createBodyMarkup()}></div>
           </div>
-          <div className='form-group'>
-            <div className="noteToolbar">
-              <select tabIndex="-1" className="ql-size input-sm btn btn-default">
-                <option value="10px">Small</option>
-                <option value="13px" selected>Normal</option>
-                <option value="18px">Large</option>
-                <option value="32px">Huge</option>
-              </select>
-              <button tabIndex="-1" className="btn btn-default ql-bold">
-                <i className="fa fa-bold"></i>
-              </button>
-              <button tabIndex="-1" className="btn btn-default ql-italic">
-                <i className="fa fa-italic"></i>
-              </button>
-              <button tabIndex="-1" className="btn btn-default ql-strike">
-                <i className="fa fa-strikethrough"></i>
-              </button>
-              <button tabIndex="-1" className="btn btn-default ql-underline">
-                <i className="fa fa-underline"></i>
-              </button>
-              <button tabIndex="-1" className="btn btn-default ql-link">
-                LInk
-              </button>
+
+          <div className={this.state.mode == 'edit' ? "" : "hidden"}>
+            <div className='form-group'>
+              <input
+                type='text'
+                className='form-control input-lg'
+                value={this.state.note.title}
+                placeholder="Note Title"
+                onChange={this.handleTitleChange}></input>
             </div>
+            <div className='form-group'>
+              <div className="noteToolbar">
+                <select tabIndex="-1" className="ql-size input-sm btn btn-default">
+                  <option value="10px">Small</option>
+                  <option value="13px" selected>Normal</option>
+                  <option value="18px">Large</option>
+                  <option value="32px">Huge</option>
+                </select>
+                <button tabIndex="-1" className="btn btn-default ql-bold">
+                  <i className="fa fa-bold"></i>
+                </button>
+                <button tabIndex="-1" className="btn btn-default ql-italic">
+                  <i className="fa fa-italic"></i>
+                </button>
+                <button tabIndex="-1" className="btn btn-default ql-strike">
+                  <i className="fa fa-strikethrough"></i>
+                </button>
+                <button tabIndex="-1" className="btn btn-default ql-underline">
+                  <i className="fa fa-underline"></i>
+                </button>
+                <button tabIndex="-1" className="btn btn-default ql-link">
+                  Link
+                </button>
+              </div>
 
-            <div className='noteEditor'></div>
+              <div className='noteEditor'></div>
+            </div>
+            <hr/>
+            {this.state.note.id ?
+              <a href='#' className='btn btn-success' onClick={this.handleViewMode}>
+                <i className='fa fa-check'></i>&nbsp;&nbsp;Done
+              </a> : ''
+            }
           </div>
-          <hr/>
           {this.state.note.id ?
-            <a href='#' className='btn btn-success' onClick={this.handleViewMode}>
-              <i className='fa fa-check'></i>&nbsp;&nbsp;Done
-            </a> : ''
+            <NoteShare
+              token={this.props.token}
+              note={this.state.note}
+              shares={this.state.note.shares}></NoteShare> : ''
           }
-        </div>
+
         </div>
       )
     } else {

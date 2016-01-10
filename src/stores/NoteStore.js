@@ -1,6 +1,7 @@
 var alt = require('../components/alt');
 var NoteActions = require('../actions/NoteActions');
 var UserActions = require('../actions/UserActions');
+var ShareActions = require('../actions/ShareActions');
 
 class NoteStore {
   constructor() {
@@ -18,8 +19,19 @@ class NoteStore {
       handleClearNote: [UserActions.LOG_OUT, NoteActions.CLEAR_NOTE],
       handleNewNote: NoteActions.NEW_NOTE,
       handleSwitchModeView: NoteActions.SWITCH_MODE_VIEW,
-      handleSwitchModeEdit: NoteActions.SWITCH_MODE_EDIT
+      handleSwitchModeEdit: NoteActions.SWITCH_MODE_EDIT,
+      handleShareCreatedSuccess: ShareActions.CREATE_SHARE_SUCCESS,
+      handleShareDeleteSuccess: ShareActions.DELETE_SHARE_SUCCESS
     });
+  }
+  handleShareCreatedSuccess(share){
+    if(!this.note.shares){this.note.shares = [];}
+    this.note.shares.push(share);
+  }
+  handleShareDeleteSuccess(share){
+    if(!this.note.shares){this.note.shares = [];}
+    var shareIdx = this.note.shares.indexOf(share);
+    if(shareIdx >= 0){ this.note.shares.splice(shareIdx, 1);}
   }
   handleNoteSaveStarted(){
     this.saving = true

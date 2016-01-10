@@ -7,6 +7,7 @@ import alt from 'components/alt';
 import wrappedNoteStore, {NoteStore} from 'stores/NoteStore';
 import noteActions from 'actions/NoteActions';
 import userActions from 'actions/UserActions';
+import shareActions from 'actions/ShareActions';
 
 import AltTestingUtils from 'alt/utils/AltTestingUtils';
 
@@ -134,7 +135,7 @@ describe('NoteStore', function(){
     beforeEach(function(){
       var action = noteActions.NEW_NOTE;
       alt.dispatcher.dispatch({action});
-      
+
       var action = noteActions.UPDATE_NOTE;
       alt.dispatcher.dispatch({action});
     });
@@ -151,6 +152,29 @@ describe('NoteStore', function(){
       alt.dispatcher.dispatch({action});
       expect(wrappedNoteStore.getState().saving).to.equal(false);
     });
+  });
+
+  describe('it listens for share events', function(){
+    beforeEach(function(){
+      var action = noteActions.NEW_NOTE;
+      alt.dispatcher.dispatch({action});
+    });
+    var data = {auth_key: 'somekey123', permission: 'readwrite'};
+
+    it('appends created share', function(){
+      var action = shareActions.CREATE_SHARE_SUCCESS;
+      alt.dispatcher.dispatch({action, data});
+      expect(wrappedNoteStore.getState().note.shares).to.eql([data]);
+    });
+
+    it('removes deleted share', function(){
+      var action = shareActions.DELETE_SHARE_SUCCESS;
+      wrappedNoteStore.getState().note.shares = [data];
+
+      alt.dispatcher.dispatch({action, data});
+      expect(wrappedNoteStore.getState().note.shares).to.eql([]);
+    });
+
   });
 
 });
