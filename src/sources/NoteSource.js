@@ -102,7 +102,7 @@ var NoteSource = {
         }
       })
     });
-  }
+  }  
 }
 
 module.exports = NoteSource;
