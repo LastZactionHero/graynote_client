@@ -87,7 +87,7 @@ var Note = React.createClass({
   render() {
     if(this.state.note) {
       return(
-        <div>
+        <div className='container'>
         <div className={this.state.mode == 'edit' ? "hidden" : ""}>
           <h2>
             <a href='#' className='btn btn-success' onClick={this.handleEditMode}>

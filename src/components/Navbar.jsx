@@ -31,7 +31,7 @@ var Navbar = React.createClass({
   },
   render(){
     return(
-      <nav className='navbar navbar-inverse navbar-fixed-top'>
+      <nav className='navbar navbar-fixed-top'>
         <div className='container-fluid'>
           <div className="navbar-header">
             <a className="navbar-brand" href="">graynote</a>
